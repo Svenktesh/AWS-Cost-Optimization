@@ -37,7 +37,7 @@ Library: Boto3 (AWS SDK for Python)
 Detailed Steps
 Fetch All EBS Snapshots
 
-# Task: Use Boto3 to connect to the AWS API and list all EBS snapshots.
+### Task: Use Boto3 to connect to the AWS API and list all EBS snapshots.
 Code Sample:
 python
 Copy code
@@ -49,7 +49,7 @@ def fetch_snapshots():
     return snapshots
 Filter Stale Snapshots
 
-Criteria: Define what constitutes a "stale" snapshot. This might be based on age, whether the volume it was taken from still exists, or if it’s no longer needed for backups or recovery.
+## Criteria: Define what constitutes a "stale" snapshot. This might be based on age, whether the volume it was taken from still exists, or if it’s no longer needed for backups or recovery.
 Code Sample:
 python
 Copy code
@@ -67,7 +67,7 @@ def filter_stale_snapshots(snapshots, days_old=30):
     return stale_snapshots
 Delete Stale Snapshots
 
-Task: Use Boto3 to delete identified stale snapshots.
+### Task: Use Boto3 to delete identified stale snapshots.
 Code Sample:
 python
 Copy code
@@ -77,7 +77,7 @@ def delete_snapshots(snapshot_ids):
         ec2_client.delete_snapshot(SnapshotId=snapshot_id)
 Lambda Handler Function
 
-Task: Integrate all steps into a Lambda handler function.
+### Task: Integrate all steps into a Lambda handler function.
 Code Sample:
 python
 Copy code
@@ -90,9 +90,15 @@ def lambda_handler(event, context):
         'body': f"Deleted snapshots: {stale_snapshots}"
     }
 Cost Optimization
-Outcome: By deleting snapshots that are no longer needed, you reduce storage costs associated with EBS snapshots.
+
+### Outcome:
+By deleting snapshots that are no longer needed, you reduce storage costs associated with EBS snapshots.
 Real-time Implementation: This can be scheduled to run at regular intervals (e.g., daily or weekly) using CloudWatch Events to trigger the Lambda function.
 Considerations
-Permissions: Ensure the Lambda function has the necessary IAM roles and policies to describe and delete snapshots.
+
+### Permissions:
+Ensure the Lambda function has the necessary IAM roles and policies to describe and delete snapshots.
 Testing: Thoroughly test the Lambda function in a development environment to ensure it correctly identifies and deletes only the stale snapshots.
-Logging: Implement logging to monitor which snapshots are being deleted, which can help in auditing and troubleshooting.
+
+### Logging:
+Implement logging to monitor which snapshots are being deleted, which can help in auditing and troubleshooting.
